@@ -1,16 +1,17 @@
 package com.segovelo.tutorial09012021;
 
-import java.util.*;
+import java.util.UUID;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.stereotype.Repository;
 
 @Repository("fakeDAO")
 public class FakePersonDataAccessService implements PersonDAO {
 	
-	private static List<Person> DB = new ArrayList<>();
 	@Override
 	public int insertPerson(UUID id, Person person) {
-		// TODO Auto-generated method stub
-		DB.add(new Person(id, person.getName()));
+		DB.add(new Person(id, person.getName(), person.getAge(), this.getClass().toString()));
 		return 1;
 	}
 	@Override
@@ -37,11 +38,16 @@ public class FakePersonDataAccessService implements PersonDAO {
     			.map(person -> {
     				  int indexOfPersonToUpdate = DB.indexOf(person);
     				  if(indexOfPersonToUpdate >= 0) {
-    					  DB.set(indexOfPersonToUpdate, new Person(id, updatePerson.getName()));
+    					  DB.set(indexOfPersonToUpdate, new Person(id, updatePerson.getName(), updatePerson.getAge(), this.getClass().toString()));
     					  return 1;
     				  }
     				  return 0;
     			})
     			.orElse(0);
+    }
+    
+    @Override
+    public void display() {
+    	System.out.println("This is "+ this.getClass().toString());
     }
 }
