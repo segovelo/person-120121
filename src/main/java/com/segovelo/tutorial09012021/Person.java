@@ -20,7 +20,15 @@ public class Person {
 			this.name = name;
 			this.age = age;
 			this.service = service;
-		}
+		}		
+		public Person(@JsonProperty("name") String name, @JsonProperty("age") int age, String service) {
+			super();
+			this.id = UUID.randomUUID();
+			this.name = name;
+			this.age = age;
+			this.service = service;
+	}		
+		
 		public UUID getId() {
 			return id;
 		}
